@@ -1,0 +1,27 @@
+import candidatos.*
+import laLigaDeGuardianes.*
+describe "Tests item 7" {
+    method initialize() {
+        liga.agregarCandidato(helia)
+        liga.agregarCandidato(astro)
+        liga.agregarCandidato(zoe)
+    }
+  test "Cambia el mínimo del rol ayudante a 10 unidades, la liga entrena y luego une a candidatos para el rol ayudante, Verificar que solo se convierte en guardianes helia y astro" {
+    liga.cambiarFuerzaMinimaA(10)
+    liga.entrenarTodosLosCandidatos()
+    liga.evaluacionDeIngresoGlobal("Ayudante")
+    assert.equals(#{helia, astro}, liga.guardianes())
+  }
+
+  test "La liga cambia el rol destacado a estratega, entrena y luego une a los candidatos para el rol estratega. Verificar que solo se convierte en guardián zoe " {
+    liga.cambiarRolDestacado("Estratega")
+    liga.entrenarTodosLosCandidatos()
+    liga.evaluacionDeIngresoGlobal("Estratega")
+    assert.equals(#{zoe}, liga.guardianes())
+  }
+
+  test "Todos entran a la liga si la prueba es del rol de Inicial" {
+    liga.evaluacionDeIngresoGlobal("Inicial")
+    assert.equals(3, liga.guardianes().size())
+  }
+}
